@@ -60,6 +60,8 @@ namespace WindowsFormsApplication4
 
         private void button1_Click(object sender, EventArgs e)
         {
+            label8.Text = "Add Product";
+
             try
             {
                 con.Open();
@@ -67,8 +69,7 @@ namespace WindowsFormsApplication4
                 cmd.ExecuteNonQuery();
                 display();
                 clear();
-                MessageBox.Show("Data Inserted");
-                
+                label9.Text = "Data inserted Successfully";
                 con.Close();
             }
             catch (Exception es)
@@ -105,14 +106,17 @@ namespace WindowsFormsApplication4
 
         private void button2_Click(object sender, EventArgs e)
         {
+            label8.Text = "Update Product";
+
             try
             {
                 con.Open();
                 cmd = new SqlCommand("update data set id =" + textBox1.Text + ",name = '" + textBox2.Text + "',quantity= " + textBox3.Text + ",price =" + textBox4.Text + ",decript= '" + textBox5.Text + "' where id =  " + textBox1.Text, con);
                 cmd.ExecuteNonQuery();
                 display();
-                MessageBox.Show("Data Updated");
+                label9.Text = "Data updated Successfully";
                 con.Close();
+
             }
             catch (Exception ea)
             {
@@ -131,6 +135,7 @@ namespace WindowsFormsApplication4
 
         private void button3_Click(object sender, EventArgs e)
         {
+            label8.Text = "Delete Product";
             try
             {
                 con.Open();
@@ -138,7 +143,7 @@ namespace WindowsFormsApplication4
                 cmd.ExecuteNonQuery();
                 display();
                 clear();
-                MessageBox.Show("Data Deleted");
+                label9.Text = "Data Deleted Successfully";
                 con.Close();
             }
             catch (Exception ea)
