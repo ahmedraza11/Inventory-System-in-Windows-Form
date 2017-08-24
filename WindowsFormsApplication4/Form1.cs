@@ -128,5 +128,23 @@ namespace WindowsFormsApplication4
             textBox4.Text = (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
             textBox5.Text = (dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand("delete data where id= " + textBox1.Text + "", con);
+                cmd.ExecuteNonQuery();
+                display();
+                clear();
+                MessageBox.Show("Data Deleted");
+                con.Close();
+            }
+            catch (Exception ea)
+            {
+                MessageBox.Show(ea.Message);
+            }
+        }
     }
 }
