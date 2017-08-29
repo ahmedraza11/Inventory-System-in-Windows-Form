@@ -16,6 +16,9 @@ namespace WindowsFormsApplication4
         public Form1()
         {
             InitializeComponent();
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = true;
+
         }
         SqlConnection con = new SqlConnection(@"Data Source=LAB9-10\SQLSERVER2012ENT;Initial Catalog=Inventery;Integrated Security=True");
         SqlCommand cmd;
@@ -60,12 +63,52 @@ namespace WindowsFormsApplication4
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+         
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            textBox1.Text = (dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+            textBox2.Text = (dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+            textBox3.Text = (dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
+            textBox4.Text = (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
+            textBox5.Text = (dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
             label8.Text = "Add Product";
 
             try
             {
                 con.Open();
-                cmd = new SqlCommand("insert into data values ("+textBox1.Text+",'"+textBox2.Text+"',"+textBox3.Text+","+textBox4.Text+",'"+textBox5.Text+"')", con);
+                cmd = new SqlCommand("insert into data values (" + textBox1.Text + ",'" + textBox2.Text + "'," + textBox3.Text + "," + textBox4.Text + ",'" + textBox5.Text + "')", con);
                 cmd.ExecuteNonQuery();
                 display();
                 clear();
@@ -78,33 +121,7 @@ namespace WindowsFormsApplication4
             }
         }
 
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                con.Open();
-                cmd = new SqlCommand("select * from data where name LIKE '" + textBox6.Text + "%'", con);
-                cmd.ExecuteNonQuery();
-                SqlDataAdapter ad = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                ad.Fill(dt);
-                dataGridView1.DataSource = dt;
-                con.Close();
-
-            }
-            catch (Exception es)
-            {
-                MessageBox.Show(es.Message);
-            }
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
             label8.Text = "Update Product";
 
@@ -124,16 +141,7 @@ namespace WindowsFormsApplication4
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            textBox1.Text = (dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-            textBox2.Text = (dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
-            textBox3.Text = (dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
-            textBox4.Text = (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
-            textBox5.Text = (dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click_1(object sender, EventArgs e)
         {
             label8.Text = "Delete Product";
             try
@@ -150,6 +158,53 @@ namespace WindowsFormsApplication4
             {
                 MessageBox.Show(ea.Message);
             }
+        }
+
+        private void textBox6_TextChanged_1(object sender, EventArgs e)
+        {
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand("select * from data where name LIKE '" + textBox6.Text + "%'", con);
+                cmd.ExecuteNonQuery();
+                object count = cmd.ExecuteScalar();
+                SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                ad.Fill(dt);
+                dataGridView1.DataSource = dt;
+                if (count == null)
+                {
+                    MessageBox.Show("Not Such Data Found!");
+                }
+                con.Close();
+
+            }
+            catch (Exception es)
+            {
+                MessageBox.Show(es.Message);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            panel3.Visible = true;
+            //crud_panel.Visible = false;
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            
         }
     }
 }
